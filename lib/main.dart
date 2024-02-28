@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-//import 'package:hirehub/views/dashboard.dart';
-import 'package:hirehub/views/login.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:hirehub/utils/routes.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: Login(),
+  runApp(GetMaterialApp(
+    initialRoute: "/",
     debugShowCheckedModeBanner: false,
+    getPages: Routes.routes,
   ));
 }
