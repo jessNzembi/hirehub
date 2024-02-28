@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hirehub/views/custombutton.dart';
-import 'package:hirehub/views/customtextfield.dart';
+import 'package:hirehub/views/customtextformfield.dart';
 
 class Signup extends StatelessWidget {
-  const Signup({super.key});
+  Signup({super.key});
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -14,108 +17,128 @@ class Signup extends StatelessWidget {
     TextEditingController password2Controller = TextEditingController();
 
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(50),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "assets/images/job-search.png",
-                width: 200,
-                height: 200,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              // Text(
-              //   "Welcome",
-              //   style: TextStyle(
-              //       fontSize: 30,
-              //       fontWeight: FontWeight.bold,
-              //       color: Color.fromARGB(255, 78, 176, 221)),
-              // ),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Join Us Today",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 78, 176, 221)),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                userFieldController: firstNameController,
-                hintMessage: "First Name",
-                icon: Icons.person,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                userFieldController: lastNameController,
-                hintMessage: "Last Name",
-                icon: Icons.person,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                userFieldController: emailController,
-                hintMessage: "Email",
-                icon: Icons.mail,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                userFieldController: password1Controller,
-                hintMessage: "Password",
-                icon: Icons.lock,
-                hideText: true,
-                isPassword: true,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                userFieldController: password2Controller,
-                hintMessage: "Confirm Password",
-                icon: Icons.lock,
-                hideText: true,
-                isPassword: true,
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              CustomButton(
-                text: "Sign Up",
-                onPressed: () {},
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Already have an account?"),
-                  TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                          foregroundColor: Color.fromARGB(255, 85, 170, 209)),
-                      child: Text("login")),
-                ],
-              )
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/images/job-search.png",
+                  width: 200,
+                  height: 200,
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Join Us Today",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 78, 176, 221)),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                CustomTextFormField(
+                  userFieldController: firstNameController,
+                  text: "First Name",
+                  icon: Icons.person,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your first name';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                CustomTextFormField(
+                  userFieldController: lastNameController,
+                  text: "Last Name",
+                  icon: Icons.person,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your last name';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                CustomTextFormField(
+                  userFieldController: emailController,
+                  text: "Email",
+                  icon: Icons.mail,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                      return 'Please enter a valid email';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                CustomTextFormField(
+                  userFieldController: password1Controller,
+                  text: "Password",
+                  icon: Icons.lock,
+                  hideText: true,
+                  isPassword: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                CustomTextFormField(
+                  userFieldController: password2Controller,
+                  text: "Confirm Password",
+                  icon: Icons.lock,
+                  hideText: true,
+                  isPassword: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please confirm your password';
+                    }
+                    if (password1Controller.text != value) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 25),
+                CustomButton(
+                  text: "Sign Up",
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false){
+                      Get.toNamed("/login");
+                    }
+                  },
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Already have an account?"),
+                    TextButton(
+                        onPressed: () {
+                          Get.toNamed("/login");
+                        },
+                        style: TextButton.styleFrom(
+                            foregroundColor: Color.fromARGB(255, 85, 170, 209)),
+                        child: Text("login")),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
