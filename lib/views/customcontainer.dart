@@ -56,7 +56,8 @@ class CustomContainer extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Text(buttonText),
+                  child:
+                      Text(buttonText, style: TextStyle(color: Colors.black)),
                 ),
               ),
             ],
