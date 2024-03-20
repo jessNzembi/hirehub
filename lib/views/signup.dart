@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hirehub/auth/api.dart';
 import 'package:hirehub/views/custombutton.dart';
 import 'package:hirehub/views/customtextformfield.dart';
 
@@ -15,6 +18,34 @@ class Signup extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
     TextEditingController password1Controller = TextEditingController();
     TextEditingController password2Controller = TextEditingController();
+
+    
+    Future<void> signup() async {
+      final response = await http.post(
+        Uri.parse(
+            'http://127.0.0.1:8000/signup/'), // Replace with your Django backend's signup endpoint
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'first_name': firstNameController.text,
+          'last_name': lastNameController.text,
+          'email': emailController.text,
+          'password': password1Controller.text,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        // Signup successful
+        Navigator.of(context).pushReplacementNamed('/login');
+      } else {
+        // Signup failed, handle error
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Signup failed. Please try again.')),
+        );
+      }
+    }
+
 
     return Scaffold(
       appBar: AppBar(),
@@ -119,7 +150,8 @@ class Signup extends StatelessWidget {
                   text: "Sign Up",
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false){
-                      Get.toNamed("/login");
+                      //ignUp(firstNameController.text, lastNameController.text, emailController.text, password1Controller.text);
+                      signup();
                     }
                   },
                 ),
