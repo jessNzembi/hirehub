@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:hirehub/views/customcontainer.dart';
-import 'package:hirehub/views/customtextfield.dart';
-import 'package:hirehub/views/customtext.dart';
-import 'package:hirehub/views/customcontainer2.dart';
+import 'package:hirehub/widgets/customcontainer.dart';
+import 'package:hirehub/widgets/customtextfield.dart';
+import 'package:hirehub/widgets/customtext.dart';
+import 'package:hirehub/widgets/customcontainer2.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});

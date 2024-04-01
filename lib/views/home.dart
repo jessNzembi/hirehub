@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hirehub/controllers/homecontroller.dart';
 import 'package:hirehub/views/dashboard.dart';
+import 'package:hirehub/views/profile.dart';
 
 HomeController homeController = Get.put(HomeController());
 var screens = [
   Dashboard(),
   Text("Settings Page coming soon"),
-  Text("Profile page coming soon"),
+  Profile(),
 ];
 
 class Home extends StatelessWidget {

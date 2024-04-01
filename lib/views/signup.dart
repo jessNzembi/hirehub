@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hirehub/views/custombutton.dart';
-import 'package:hirehub/views/customtextformfield.dart';
+import 'package:hirehub/widgets/custombutton.dart';
+import 'package:hirehub/widgets/customtextformfield.dart';
 
 class Signup extends StatelessWidget {
   Signup({super.key});

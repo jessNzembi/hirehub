@@ -4,7 +4,7 @@ import 'package:hirehub/utils/routes.dart';
 
 void main() {
   runApp(GetMaterialApp(
-    initialRoute: "/",
+    initialRoute: "/profile",
     debugShowCheckedModeBanner: false,
     getPages: Routes.routes,
   ));
