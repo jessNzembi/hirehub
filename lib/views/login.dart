@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hirehub/utils/local_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:hirehub/widgets/custombutton.dart';
 import 'package:hirehub/widgets/customtextformfield.dart';
@@ -10,6 +11,7 @@ class Login extends StatelessWidget {
   Login({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  final LocalStorageService localStorageService = LocalStorageService();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,10 @@ class Login extends StatelessWidget {
 
       if (response.statusCode == 200) {
         // Login successful
+        var userData = jsonDecode(response.body);
+        var userId = userData['userId'];
+        localStorageService.storeUserId(userId);
+        print(userId);
         Navigator.of(context).pushReplacementNamed('/home');
       } else {
         // Signup failed, handle error

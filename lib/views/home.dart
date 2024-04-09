@@ -7,34 +7,46 @@ import 'package:hirehub/views/profile.dart';
 HomeController homeController = Get.put(HomeController());
 var screens = [
   Dashboard(),
-  Text("Settings Page coming soon"),
+  Text("Add your jobs here"),
+  //Text("Settings Page coming soon"),
   Profile(),
 ];
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  const Home({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        onTap: (index) {
-          homeController.updateSelectedPage(index);
+      bottomNavigationBar: GetBuilder<HomeController>(
+        builder: (controller) {
+          return BottomNavigationBar(
+            //backgroundColor: Colors.white, // Set background color
+            selectedItemColor: Colors.blue, // Default selected item color
+            unselectedItemColor: Colors.grey, // Default unselected item color
+            currentIndex: controller.selectedPage.value,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add),
+                label: 'Jobs',
+              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.settings),
+              //   label: 'Settings',
+              // ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
+            onTap: (index) {
+              controller.updateSelectedPage(index);
+            },
+          );
         },
       ),
       body: Obx(

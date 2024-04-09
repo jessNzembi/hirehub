@@ -10,8 +10,8 @@ class UpdateProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController firstNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
+    //TextEditingController firstNameController = TextEditingController();
+    TextEditingController positionController = TextEditingController();
     TextEditingController phoneNumberController = TextEditingController();
     TextEditingController genderController = TextEditingController();
     TextEditingController ageController = TextEditingController();
@@ -23,8 +23,8 @@ class UpdateProfile extends StatelessWidget {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
-          'first_name': firstNameController.text,
-          'last_name': lastNameController.text,
+          //'first_name': firstNameController.text,
+          'position': positionController.text,
           'phone_number': phoneNumberController.text,
           'gender': genderController.text,
           'age': ageController.text,
@@ -37,7 +37,7 @@ class UpdateProfile extends StatelessWidget {
       } else {
         // Signup failed, handle error
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Signup failed. Please try again.')),
+          SnackBar(content: Text('Update failed. Please try again.')),
         );
       }
     }
@@ -78,21 +78,21 @@ class UpdateProfile extends StatelessWidget {
                   ]
                 ),
                 SizedBox(height: 40),
+                // CustomTextFormField(
+                //   userFieldController: firstNameController,
+                //   text: "First Name",
+                //   icon: Icons.person,
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Please enter your first name';
+                //     }
+                //     return null;
+                //   },
+                // ),
+                //SizedBox(height: 20),
                 CustomTextFormField(
-                  userFieldController: firstNameController,
-                  text: "First Name",
-                  icon: Icons.person,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your first name';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 20),
-                CustomTextFormField(
-                  userFieldController: lastNameController,
-                  text: "Last Name",
+                  userFieldController: positionController,
+                  text: "Position",
                   icon: Icons.person,
                 ),
                 SizedBox(height: 20),
