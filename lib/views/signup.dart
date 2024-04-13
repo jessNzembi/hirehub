@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:hirehub/utils/apis.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ class Signup extends StatelessWidget {
   Signup({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  final ApiService apiService = ApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class Signup extends StatelessWidget {
     Future<void> signup() async {
       final response = await http.post(
         Uri.parse(
-            'http://127.0.0.1:8000/signup/'), // Replace with your Django backend's signup endpoint
+            'http://127.0.0.1:8000/signup/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

@@ -9,14 +9,14 @@ class CustomContainer extends StatelessWidget {
   final String jobDetails;
   final String buttonText;
   final Color color;
-  //final VoidCallback onButtonPressed;
+  final VoidCallback? onButtonPressed;
 
   CustomContainer({
     required this.imagePath,
     required this.title,
     required this.location,
     required this.jobDetails,
-    //required this.onButtonPressed,
+    this.onButtonPressed,
     this.buttonText = "Apply Now",
     this.color = Colors.blueGrey,
   });
@@ -55,7 +55,7 @@ class CustomContainer extends StatelessWidget {
               // Button at the bottom center
               Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: onButtonPressed,
                   child:
                       Text(buttonText, style: TextStyle(color: Colors.black)),
                 ),

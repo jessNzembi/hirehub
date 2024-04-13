@@ -97,7 +97,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hirehub/utils/apis.dart';
 import 'package:hirehub/widgets/tools.dart';
-//import 'package:your_app_name/services/api_service.dart'; // Import the ApiService
 
 class Settings extends StatelessWidget {
   final ApiService apiService = ApiService(); // Initialize ApiService
