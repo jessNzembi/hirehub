@@ -9,7 +9,7 @@ class JobManagement extends StatelessWidget {
   final AddJobController addJobController = Get.put(AddJobController());
   final JobsController jobsController = Get.put(JobsController());
 
-  final List<String> genderOptions = ['part-time', 'full-time'];
+  final List<String> durationOptions = ['part-time', 'full-time'];
 
   String? selectedDuration;
 
@@ -24,7 +24,7 @@ class JobManagement extends StatelessWidget {
           bottom: TabBar(
             tabs: [
               Tab(text: 'Add Job'),
-              Tab(text: 'Jobs'),
+              Tab(text: ' My Jobs'),
             ],
           ),
         ),
@@ -74,7 +74,7 @@ class JobManagement extends StatelessWidget {
             onChanged: (String? newValue) {
               selectedDuration = newValue;
             },
-            items: genderOptions.map<DropdownMenuItem<String>>((String value) {
+            items: durationOptions.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),

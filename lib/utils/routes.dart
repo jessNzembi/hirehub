@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:hirehub/views/add_job.dart';
+import 'package:hirehub/views/update_job.dart';
 import 'package:hirehub/views/dashboard.dart';
 import 'package:hirehub/views/home.dart';
 import 'package:hirehub/views/jobs.dart';

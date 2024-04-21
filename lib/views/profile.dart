@@ -1,17 +1,15 @@
+// profile.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hirehub/controllers/profilecontroller.dart';
 import 'package:hirehub/widgets/card.dart';
-import 'package:hirehub/utils/local_storage.dart';
+
 
 class Profile extends StatelessWidget {
   final ProfileController profileController = Get.put(ProfileController());
-  final LocalStorageService localStorageService = LocalStorageService();
 
   @override
   Widget build(BuildContext context) {
-    fetchUserProfile();
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -21,30 +19,18 @@ class Profile extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-              // Navigate to settings page
               Get.toNamed("/settings");
             },
           ),
         ],
       ),
-      body: Obx(() {
-        if (profileController.isLoading.value) {
-          return Center(child: CircularProgressIndicator());
-        } else {
-          return buildProfileUI(context);
-        }
-      }),
+      body: Obx(() => profileController.userData.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : buildProfileUI(context, profileController.userData.value)),
     );
   }
 
-  void fetchUserProfile() async {
-    int? userId = await localStorageService.getUserId();
-    if (userId != null) {
-      profileController.fetchUserProfile(userId);
-    }
-  }
-
-  Widget buildProfileUI(BuildContext context) {
+  Widget buildProfileUI(BuildContext context, Map<String, dynamic> userData) {
     return Material(
       child: Stack(
         children: [
@@ -57,27 +43,26 @@ class Profile extends StatelessWidget {
                   color: Color.fromARGB(255, 130, 208, 245),
                 ),
                 child: Center(
-                  child: Column(children: [
-                    SizedBox(
-                      height: 50,
-                    ),
-                    CircleAvatar(
-                      backgroundImage: AssetImage(
-                        "assets/images/woman.png",
+                  child: Column(
+                    children: [
+                      SizedBox(height: 50),
+                      CircleAvatar(
+                        backgroundImage: userData['profilePicture'] != null
+                            ? NetworkImage(
+                                "http://127.0.0.1:8000${userData['profilePicture']}")
+                            : AssetImage("assets/images/woman.png")
+                                as ImageProvider,
+                        radius: 90.0,
                       ),
-                      radius: 90.0,
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                        "${profileController.firstName} ${profileController.lastName}"
-                            .toUpperCase()),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Obx(() => Text(profileController.position.value)),
-                  ]),
+                      SizedBox(height: 3),
+                      Text(
+                        "${userData['firstName']} ${userData['lastName']}"
+                            .toUpperCase(),
+                      ),
+                      SizedBox(height: 5),
+                      Text(userData['position']),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -98,44 +83,39 @@ class Profile extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 1.8,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(70),
-                    topRight: Radius.circular(70),
-                  )),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(70),
+                  topRight: Radius.circular(70),
+                ),
+              ),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 50,
-                  ),
+                  SizedBox(height: 50),
                   InfoCard(
-                      title: "Email",
-                      content: profileController.email.value,
-                      icon: Icons.mail),
-                  SizedBox(
-                    height: 15,
+                    title: "Email",
+                    content: userData['email'],
+                    icon: Icons.mail,
                   ),
+                  SizedBox(height: 15),
                   InfoCard(
-                      title: "Phone Number",
-                      content: profileController.phoneNumber.value,
-                      icon: Icons.mail),
-                  SizedBox(
-                    height: 15,
+                    title: "Phone Number",
+                    content: userData['phoneNumber'],
+                    icon: Icons.phone,
                   ),
+                  SizedBox(height: 15),
                   InfoCard(
-                      title: "Gender",
-                      content: profileController.gender.value,
-                      icon: Icons.mail),
-                  SizedBox(
-                    height: 15,
+                    title: "Gender",
+                    content: userData['gender'],
+                    icon: Icons.person,
                   ),
+                  SizedBox(height: 15),
                   InfoCard(
-                      title: "Age",
-                      content: profileController.age.value.toString(),
-                      icon: Icons.mail),
-                  SizedBox(
-                    height: 20,
+                    title: "Age",
+                    content: userData['age'].toString(),
+                    icon: Icons.person,
                   ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),

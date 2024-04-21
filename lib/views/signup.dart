@@ -120,7 +120,6 @@ class Signup extends StatelessWidget {
                   userFieldController: password1Controller,
                   text: "Password",
                   icon: Icons.lock,
-                  hideText: true,
                   isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -134,7 +133,6 @@ class Signup extends StatelessWidget {
                   userFieldController: password2Controller,
                   text: "Confirm Password",
                   icon: Icons.lock,
-                  hideText: true,
                   isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -151,7 +149,6 @@ class Signup extends StatelessWidget {
                   text: "Sign Up",
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false){
-                      //ignUp(firstNameController.text, lastNameController.text, emailController.text, password1Controller.text);
                       signup();
                     }
                   },

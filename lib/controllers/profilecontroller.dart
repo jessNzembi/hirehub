@@ -1,40 +1,23 @@
-import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+import 'package:hirehub/utils/local_storage.dart';
 
 class ProfileController extends GetxController {
-  var isLoading = true.obs;
-  var firstName = ''.obs;
-  var lastName = ''.obs;
-  var position = ''.obs;
-  var email = ''.obs;
-  var phoneNumber = ''.obs;
-  var gender = ''.obs;
-  String? profilePhotoUrl;
-  var age = 0.obs;
+  final LocalStorageService localStorageService = LocalStorageService();
+  RxMap<String, dynamic> userData = RxMap<String, dynamic>();
 
-  void fetchUserProfile(int userId) async {
-    try {
-      isLoading(true);
-      final response =
-          await http.get(Uri.parse('http://127.0.0.1:8000/users/$userId'));
-      if (response.statusCode == 200) {
-        final profileData = jsonDecode(response.body);
-        position(profileData['position']);
-        firstName(profileData['first_name']);
-        lastName(profileData['last_name']);
-        email(profileData['email']);
-        phoneNumber(profileData['phone_number']);
-        gender(profileData['gender']);
-        //profilePhotoUrl! = profileData['pr'];
-        age(profileData['age']);
-      } else {
-        throw Exception('Failed to fetch user profile data');
-      }
-    } catch (e) {
-      print('Error fetching user profile data: $e');
-    } finally {
-      isLoading(false);
-    }
+  @override
+  void onInit() {
+    super.onInit();
+    fetchUserData();
+  }
+
+  void fetchUserData() async {
+    userData.value = await localStorageService.getUserData();
+    update();
+  }
+
+  void updateUserData(Map<String, dynamic> newUserData) {
+    userData.value = newUserData;
+    update();
   }
 }

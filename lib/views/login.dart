@@ -33,9 +33,19 @@ class Login extends StatelessWidget {
       if (response.statusCode == 200) {
         // Login successful
         var userData = jsonDecode(response.body);
-        var userId = userData['userId'];
-        localStorageService.storeUserId(userId);
+        var userId = userData['user_id'];
+        var firstName = userData['first_name'];
+        var lastName = userData['last_name'];
+        var email = userData['email'];
+        var position = userData['position'] ?? "";
+        var phoneNumber = userData['phone_number'] ?? "";
+        var gender = userData['gender'] ?? "";
+        var age = userData['age'] ?? 0;
+        var profilePic = userData['profile_picture'];
+
+        localStorageService.storeUserData(userId, email, firstName, lastName, position, phoneNumber, gender, profilePic, age);
         print(userId);
+        print(profilePic);
         Navigator.of(context).pushReplacementNamed('/home');
       } else {
         // Signup failed, handle error
@@ -110,7 +120,6 @@ class Login extends StatelessWidget {
                   text: "Password",
                   icon: Icons.lock,
                   isPassword: true,
-                  hideText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';

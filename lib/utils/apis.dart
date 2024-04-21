@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:get/get.dart';
+import 'package:hirehub/controllers/profilecontroller.dart';
 import 'package:hirehub/utils/local_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,7 +30,8 @@ class ApiService {
 
 
   Future<bool> logout() async {
-    int? userId = await localStorageService.getUserId();
+    Map<String, dynamic> userData = await localStorageService.getUserData();
+    int? userId = userData['userId'];
     if (userId != null) {
       await localStorageService.clear();
       final response = await http.post(
@@ -41,7 +44,8 @@ class ApiService {
   }
 
   Future<bool> deleteAccount() async {
-    int? userId = await localStorageService.getUserId();
+    Map<String, dynamic> userData = await localStorageService.getUserData();
+    int? userId = userData['userId'];
     if (userId != null) {
       await localStorageService.clear();
       final response = await http.delete(
@@ -54,37 +58,70 @@ class ApiService {
 
   Future<bool> updateProfile(
       Map<String, dynamic> profileData, File? image) async {
-    int? userId = await localStorageService.getUserId();
+    Map<String, dynamic> userData = await localStorageService.getUserData();
+    int? userId = userData['userId'];
     if (userId != null) {
-      // Create a multipart request for uploading both JSON data and the image file
       var request = http.MultipartRequest(
         'PUT',
         Uri.parse('$baseUrl/profiles/update/$userId/'),
       );
 
-      // Add JSON data to the request
       request.fields.addAll(
           profileData.map((key, value) => MapEntry(key, value.toString())));
 
-      // Add the image file to the request if available
       if (image != null) {
         request.files.add(http.MultipartFile(
-          'profile_picture', // Field name for the image in the request
-          image.readAsBytes().asStream(), // Stream of image bytes
-          image.lengthSync(), // Length of the image file
-          filename: 'profile_picture.jpg', // Filename for the image
+          'profile_picture',
+          image.readAsBytes().asStream(),
+          image.lengthSync(),
+          filename: 'profile_picture.jpg',
         ));
       }
 
-      // Send the request and get the response
       var response = await request.send();
 
-      // Check if the request was successful (status code 200)
       if (response.statusCode == 200) {
+        var responseBody = await response.stream.bytesToString();
+        var responseData = jsonDecode(responseBody);
+        String newImagePath = responseData['profile_picture'];
+        print(newImagePath);
+
+        await localStorageService.storeUserData(
+          userData['userId'],
+          profileData['email'],
+          profileData['firstName'],
+          profileData['lastName'],
+          profileData['position'],
+          profileData['phoneNumber'],
+          profileData['gender'],
+          newImagePath,
+          profileData['age'],
+        );
+
+        Map<String, dynamic> updatedUserData =
+            await localStorageService.getUserData();
+        print(updatedUserData['profilePicture']);
+        Get.find<ProfileController>().updateUserData(updatedUserData);
+
         return true;
       }
     }
     return false;
+  }
+
+  Future<Map<String, dynamic>> getJobDetails(int? jobId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/jobs/view/$jobId'),
+      );
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception('Failed to fetch job details');
+      }
+    } catch (e) {
+      throw Exception('Error fetching job details: $e');
+    }
   }
 
   Future<bool> updateJob(int jobId, Map<String, dynamic> jobData) async {

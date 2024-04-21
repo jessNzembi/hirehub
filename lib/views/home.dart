@@ -108,8 +108,8 @@ class _HomePageState extends State<HomePage> {
             label: 'Jobs',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            activeIcon: Icon(Icons.add),
+            icon: Icon(Icons.person),
+            activeIcon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],

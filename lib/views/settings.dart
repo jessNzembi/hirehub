@@ -1,98 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-
-// class Settings extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(
-//           'Settings',
-//           style: TextStyle(color: Color.fromARGB(255, 78, 176, 221)),
-//         ),
-//         centerTitle: true,
-//       ),
-//       body: ListView(
-//         padding: EdgeInsets.symmetric(vertical: 8),
-//         children: [
-//           _buildSectionHeader('General'),
-//           Divider(),
-//           ListTile(
-//             title: Text('Update Profile'),
-//             trailing: Icon(Icons.account_circle),
-//             onTap: () {
-//               // Navigate to the update profile page
-//               Get.toNamed('/updateProfile');
-//             },
-//           ),
-//           Divider(),
-//           ListTile(
-//             title: Text('Logout'),
-//             trailing: Icon(Icons.exit_to_app),
-//             onTap: () {
-//               // Add logout functionality
-//               // For example, call a method to log out the user
-//             },
-//           ),
-//           Divider(),
-//           ListTile(
-//             title: Text('Delete Account'),
-//             trailing: Icon(Icons.delete),
-//             onTap: () {
-//               // Add logic to delete the account
-//               // For example: showDialog(), or Get.defaultDialog(), etc.
-//             },
-//           ),
-//           Divider(),
-//           SizedBox(height: 16),
-//           _buildSectionHeader('Feedback'),
-//           Divider(),
-//           ListTile(
-//             title: Text('Report a Bug'),
-//             trailing: Icon(Icons.bug_report),
-//             onTap: () {
-//               // Add functionality to report a bug
-//             },
-//           ),
-//           Divider(),
-//           ListTile(
-//             title: Text('Send Feedback'),
-//             trailing: Icon(Icons.feedback),
-//             onTap: () {
-//               // Add functionality to send feedback
-//             },
-//           ),
-//           Divider(),
-//           ListTile(
-//             title: Text('Contact Us'),
-//             trailing: Icon(Icons.contact_support),
-//             onTap: () {
-//               // Add functionality to contact support
-//             },
-//           ),
-//           Divider(),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget _buildSectionHeader(String title) {
-//     return Padding(
-//       padding: const EdgeInsets.all(8.0),
-//       child: Center(
-//         child: Text(
-//           title,
-//           style: TextStyle(
-//             fontSize: 18,
-//             //fontWeight: FontWeight.bold,
-//             color: Color.fromARGB(255, 78, 176, 221),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hirehub/utils/apis.dart';
@@ -158,7 +63,9 @@ class Settings extends StatelessWidget {
                   bool confirmDelete = await apiService.deleteAccount();
                   if (confirmDelete) {
                     // Navigate to the login page after account deletion
-                    Get.offAllNamed('/login');
+                    Get.offAllNamed('/');
+                  } else {
+                    print('failed');
                   }
                 },
               );

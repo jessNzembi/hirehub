@@ -15,23 +15,28 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    fetchUserProfile();
 
     return Scaffold(
       appBar: AppBar(
         leading: Obx(
-          () => profileController.isLoading.value
-              ? CircularProgressIndicator()
-              : profileController.profilePhotoUrl != null
+          () => profileController.userData.isEmpty
+              ? Center(child: CircularProgressIndicator())
+              : profileController.userData['profilePicture'] != null
                   ? CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        profileController.profilePhotoUrl!,
+                      backgroundImage: NetworkImage( "http://127.0.0.1:8000${profileController.userData['profilePicture']}",
                       ),
                     )
                   : Image.asset('assets/images/woman.png'),
         ),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () {
+                fetchJobs();
+              })
+        ],
         title: Obx(
-          () => profileController.isLoading.value
+          () => profileController.userData.isEmpty
               ? CircularProgressIndicator()
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +47,7 @@ class Dashboard extends StatelessWidget {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "${profileController.firstName} ${profileController.lastName}"
+                      "${profileController.userData['firstName']} ${profileController.userData['lastName']}"
                           .toUpperCase(),
                       style: TextStyle(fontSize: 15),
                     ),
@@ -53,15 +58,14 @@ class Dashboard extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
-          //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              controller: searchController,
-              decoration: InputDecoration(
-                hintText: 'Search job',
-                prefixIcon: Icon(Icons.search),
-              ),
-            ),
+            // TextField(
+            //   controller: searchController,
+            //   decoration: InputDecoration(
+            //     hintText: 'Search job',
+            //     prefixIcon: Icon(Icons.search),
+            //   ),
+            // ),
             SizedBox(height: 20),
             Text(
               'Popular Jobs',
@@ -155,29 +159,11 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-//   Future<List<dynamic>> fetchJobs() async {
-//     final response =
-//         await http.get(Uri.parse('http://127.0.0.1:8000/jobs/all/'));
-//     if (response.statusCode == 200) {
-//       return jsonDecode(response.body);
-//     } else {
-//       throw Exception('Failed to fetch jobs');
-//     }
-//   }
-
-//   void fetchUserProfile() async {
-//     int? userId = await localStorageService.getUserId();
-//     if (userId != null) {
-//       profileController.fetchUserProfile(userId);
-//     }
-//   }
-// }
 Future<List<dynamic>> fetchJobs() async {
     final response =
         await http.get(Uri.parse('http://127.0.0.1:8000/jobs/all/'));
     if (response.statusCode == 200) {
       List<dynamic> jobsData = jsonDecode(response.body);
-      // Fetch uploader's name and email for each job
       for (var job in jobsData) {
         final userId = job['user'];
         final userResponse =
@@ -193,12 +179,6 @@ Future<List<dynamic>> fetchJobs() async {
     }
   }
 
-  void fetchUserProfile() async {
-    int? userId = await localStorageService.getUserId();
-    if (userId != null) {
-      profileController.fetchUserProfile(userId);
-    }
-  }
 
   void navigateToJobDetailsPage(
       BuildContext context, Map<String, dynamic> job) {
