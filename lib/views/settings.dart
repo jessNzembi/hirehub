@@ -4,7 +4,7 @@ import 'package:hirehub/utils/apis.dart';
 import 'package:hirehub/widgets/tools.dart';
 
 class Settings extends StatelessWidget {
-  final ApiService apiService = ApiService(); // Initialize ApiService
+  final ApiService apiService = ApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,9 @@ class Settings extends StatelessWidget {
             title: Text('Update Profile'),
             trailing: Icon(Icons.account_circle),
             onTap: () {
-              // Navigate to the update profile page
               Get.toNamed('/updateProfile');
             },
           ),
-          // Other list tiles
           Divider(),
           ListTile(
             title: Text('Logout'),
@@ -42,14 +40,12 @@ class Settings extends StatelessWidget {
                 () async {
                   bool confirmLogout = await apiService.logout();
                   if (confirmLogout) {
-                    // Navigate to the login page after logout
                     Get.offAllNamed('/login');
                   }
                 },
               );
             },
           ),
-          // Other list tiles
           Divider(),
           ListTile(
             title: Text('Delete Account'),
@@ -62,7 +58,6 @@ class Settings extends StatelessWidget {
                 () async {
                   bool confirmDelete = await apiService.deleteAccount();
                   if (confirmDelete) {
-                    // Navigate to the login page after account deletion
                     Get.offAllNamed('/');
                   } else {
                     print('failed');
@@ -143,14 +138,14 @@ class Settings extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                onConfirmed(); // Call the callback when confirmed
+                Navigator.of(context).pop();
+                onConfirmed();
               },
               child: Text('OK'),
             ),

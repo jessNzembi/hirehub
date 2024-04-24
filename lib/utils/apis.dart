@@ -7,7 +7,7 @@ import 'package:hirehub/utils/local_storage.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String baseUrl = 'http://127.0.0.1:8000';
+  final String baseUrl = 'https://jessi16.pythonanywhere.com/';
   final LocalStorageService localStorageService = LocalStorageService();
 
   Future<bool> signup(

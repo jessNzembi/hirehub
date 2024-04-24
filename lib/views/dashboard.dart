@@ -23,18 +23,18 @@ class Dashboard extends StatelessWidget {
               ? Center(child: CircularProgressIndicator())
               : profileController.userData['profilePicture'] != null
                   ? CircleAvatar(
-                      backgroundImage: NetworkImage( "http://127.0.0.1:8000${profileController.userData['profilePicture']}",
+                      backgroundImage: NetworkImage( "https://jessi16.pythonanywhere.com${profileController.userData['profilePicture']}",
                       ),
                     )
                   : Image.asset('assets/images/woman.png'),
         ),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () {
-                fetchJobs();
-              })
-        ],
+        // actions: [
+        //   IconButton(
+        //       icon: Icon(Icons.refresh),
+        //       onPressed: () {
+        //         fetchJobs();
+        //       })
+        // ],
         title: Obx(
           () => profileController.userData.isEmpty
               ? CircularProgressIndicator()
@@ -59,13 +59,7 @@ class Dashboard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
-            // TextField(
-            //   controller: searchController,
-            //   decoration: InputDecoration(
-            //     hintText: 'Search job',
-            //     prefixIcon: Icon(Icons.search),
-            //   ),
-            // ),
+
             SizedBox(height: 20),
             Text(
               'Popular Jobs',
@@ -94,7 +88,9 @@ class Dashboard extends StatelessWidget {
                         location: "${job['city']}, ${job['country']}",
                         jobDetails: "- ${job['duration'] ?? ""}  - ${job['salary'] ?? "unknown"}/=",
                         color: Color.fromARGB(255, 2, 167, 243),
-                        //onButtonPressed: navigateToJobDetailsPage(context, job),
+                        onButtonPressed: () {
+                          navigateToJobDetailsPage(context, job);
+                        },
                       );
                     },
                     options: CarouselOptions(
@@ -161,13 +157,13 @@ class Dashboard extends StatelessWidget {
 
 Future<List<dynamic>> fetchJobs() async {
     final response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/jobs/all/'));
+        await http.get(Uri.parse('https://jessi16.pythonanywhere.com/jobs/all/'));
     if (response.statusCode == 200) {
       List<dynamic> jobsData = jsonDecode(response.body);
       for (var job in jobsData) {
         final userId = job['user'];
         final userResponse =
-            await http.get(Uri.parse('http://127.0.0.1:8000/users/$userId'));
+            await http.get(Uri.parse('https://jessi16.pythonanywhere.com/users/$userId'));
         if (userResponse.statusCode == 200) {
           final userData = jsonDecode(userResponse.body);
           job['uploader_email'] = userData['email'];

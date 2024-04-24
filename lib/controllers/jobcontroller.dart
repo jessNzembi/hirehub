@@ -18,8 +18,8 @@ class JobsController extends GetxController {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final userId = prefs.getInt('userId');
       if (userId != null) {
-        final response =
-            await http.get(Uri.parse('http://127.0.0.1:8000/jobs/details/$userId'));
+        final response = await http.get(Uri.parse(
+            'https://jessi16.pythonanywhere.com/jobs/details/$userId'));
         if (response.statusCode == 200) {
           final List<dynamic> jsonData = json.decode(response.body);
           jobs.value = jsonData;
@@ -37,18 +37,24 @@ class JobsController extends GetxController {
   }
 
   Future<void> deleteJob(int jobId) async {
+    isLoading.value = true;
     try {
-      final response =
-          await http.delete(Uri.parse('http://127.0.0.1:8000/jobs/delete/$jobId'));
+      final response = await http.get(
+          Uri.parse('https://jessi16.pythonanywhere.com/jobs/delete/$jobId'));
       if (response.statusCode == 200) {
-        jobs.removeWhere((job) => job['id'] == jobId);
+        // jobs.removeWhere((job) => job['id'] == jobId);
         Get.snackbar('Success', 'Job deleted successfully',
             duration: Duration(seconds: 2));
       } else {
+        print("Here");
+        print(response.statusCode);
+        print(response.body);
         throw Exception('Failed to delete job');
       }
     } catch (e) {
       print('Error deleting job: $e');
     }
+    isLoading.value = false;
+    refresh();
   }
 }

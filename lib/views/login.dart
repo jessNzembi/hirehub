@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hirehub/utils/local_storage.dart';
+import 'package:hirehub/widgets/tools.dart';
 import 'package:http/http.dart' as http;
 import 'package:hirehub/widgets/custombutton.dart';
 import 'package:hirehub/widgets/customtextformfield.dart';
@@ -20,7 +21,7 @@ class Login extends StatelessWidget {
 
     Future<void> login() async {
       final response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/login/'),
+        Uri.parse('https://jessi16.pythonanywhere.com/login/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -134,7 +135,13 @@ class Login extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed:  () {
+                        showCustomSnackbar(
+                          "Missing Feature",
+                          "Password Reset feature is yet to be implemented.",
+                          icon: Icons.error,
+                        );
+                      },
                       child: const Text("Forgot password?"),
                       style: TextButton.styleFrom(
                           foregroundColor: Color.fromARGB(255, 85, 170, 209)),
@@ -147,7 +154,6 @@ class Login extends StatelessWidget {
                 CustomButton(
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
-                      //ignUp(firstNameController.text, lastNameController.text, emailController.text, password1Controller.text);
                       login();
                     }
                   },
