@@ -1,16 +1,52 @@
 # hirehub
 
-A new Flutter project.
+A Flutter application for job searching and posting.
+![Screenshot](screenshots/home.jpeg)
 
-## Getting Started
+## Features
+- Adding a job
+- Deletind a job
+- Details to apply for a job
+- Updating user profile
 
-This project is a starting point for a Flutter application.
+## Screenshots
 
-A few resources to get you started if this is your first Flutter project:
+![Screenshot](screenshots/dash.jpeg)
+![Screenshot](screenshots/jobs.jpeg)
+![Screenshot](screenshots/profile.jpeg)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Run Locally
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Install [Flutter](https://flutter.dev/docs/get-started/install).
+
+Clone the project
+
+```bash
+  git clone https://github.com/jessNzembi/hirehub.git
+```
+
+Go to the project directory
+
+```bash
+  cd hirehub
+```
+
+Install dependencies
+
+```bash
+  flutter pub get
+```
+
+Run the app
+
+```bash
+  flutter run
+```
+
+## Contributing
+
+Contributions are always welcome! If you have any ideas or suggestions, please open an issue or submit a pull request.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
