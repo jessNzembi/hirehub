@@ -4,7 +4,7 @@ A Flutter application for job searching and posting.
 
 ## Features
 - Adding a job
-- Deletind a job
+- Deleting a job
 - Details to apply for a job
 - Updating user profile
 
