@@ -1,7 +1,6 @@
 # hirehub
 
 A Flutter application for job searching and posting.
-![Screenshot](screenshots/home.jpeg)
 
 ## Features
 - Adding a job
@@ -11,9 +10,7 @@ A Flutter application for job searching and posting.
 
 ## Screenshots
 
-![Screenshot](screenshots/dash.jpeg)
-![Screenshot](screenshots/jobs.jpeg)
-![Screenshot](screenshots/profile.jpeg)
+![Screenshot](screenshots/app.jpeg)
 
 ## Run Locally
 
