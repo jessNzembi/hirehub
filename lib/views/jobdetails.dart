@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hirehub/widgets/card.dart';
 
 class JobDetailsPage extends StatelessWidget {
   final String jobName;
@@ -32,77 +33,88 @@ class JobDetailsPage extends StatelessWidget {
         children: [
           if (logoUrl != null) Image.network(logoUrl!),
           SizedBox(height: 10,),
-          ListTile(
-            tileColor: Color.fromARGB(255, 130, 208, 245),
-            title: Text('Job Name: $jobName',style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),
-          ),
+          InfoCard(title: "Name", content: jobName, icon: Icons.business_center),
+          // ListTile(
+          //   tileColor: Color.fromARGB(255, 130, 208, 245),
+          //   title: Text('Job Name: $jobName',style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),
+          // ),
           SizedBox(
             height: 10,
           ),
-          ListTile(
-            tileColor: Color.fromARGB(255, 130, 208, 245),
-            title: Text('Location: $city, $country',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          InfoCard(
+              title: "Location", content: "$city, $country", icon: Icons.location_city),
+          // ListTile(
+          //   tileColor: Color.fromARGB(255, 130, 208, 245),
+          //   title: Text('Location: $city, $country',
+          //     style: TextStyle(
+          //       fontSize: 20,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: 10,
           ),
-          ListTile(
-            tileColor: Color.fromARGB(255, 130, 208, 245),
-            title: Text('Duration: $duration',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          InfoCard(
+              title: "Duration", content: duration, icon: Icons.schedule),
+          // ListTile(
+          //   tileColor: Color.fromARGB(255, 130, 208, 245),
+          //   title: Text('Duration: $duration',
+          //     style: TextStyle(
+          //       fontSize: 20,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: 10,
           ),
-          ListTile(
-            tileColor: Color.fromARGB(255, 130, 208, 245),
-            title: Text('Salary: $salary',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          InfoCard(
+              title: "Salary", content: salary, icon: Icons.monetization_on),
+          // ListTile(
+          //   tileColor: Color.fromARGB(255, 130, 208, 245),
+          //   title: Text('Salary: $salary',
+          //     style: TextStyle(
+          //       fontSize: 20,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: 10,
           ),
-          ListTile(
-            tileColor: Color.fromARGB(255, 130, 208, 245),
-            title: Text(
-              'Description: $description',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          InfoCard(
+              title: "Description", content: description, icon: Icons.description),
+          // ListTile(
+          //   tileColor: Color.fromARGB(255, 130, 208, 245),
+          //   title: Text(
+          //     'Description: $description',
+          //     style: TextStyle(
+          //       fontSize: 20,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: 10,
           ),
-          ListTile(
-            tileColor: Color.fromARGB(255, 130, 208, 245),
-            title: Text('To apply, send an email to:',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(uploaderEmail,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          InfoCard(
+              title: "To apply, send an email to:", content: uploaderEmail, icon: Icons.mail),
+          // ListTile(
+          //   tileColor: Color.fromARGB(255, 130, 208, 245),
+          //   title: Text('To apply, send an email to:',
+          //     style: TextStyle(
+          //       fontSize: 20,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          //   subtitle: Text(uploaderEmail,
+          //     style: TextStyle(
+          //       fontSize: 20,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
