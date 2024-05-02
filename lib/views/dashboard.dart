@@ -26,7 +26,7 @@ class Dashboard extends StatelessWidget {
                       backgroundImage: NetworkImage( "https://jessi16.pythonanywhere.com${profileController.userData['profilePicture']}",
                       ),
                     )
-                  : Image.asset('assets/images/woman.png'),
+                  : Image.asset('assets/images/programmer.png'),
         ),
         // actions: [
         //   IconButton(
@@ -83,7 +83,7 @@ class Dashboard extends StatelessWidget {
                     itemBuilder: (context, index, _) {
                       final job = jobsData[index];
                       return CustomContainer(
-                        imagePath: job['logo'] ?? "assets/images/ibm.png",
+                        imagePath: job['logo'] ?? "assets/images/portfolio.png",
                         title: job['job_name'],
                         location: "${job['city']}, ${job['country']}",
                         jobDetails: "- ${job['duration'] ?? ""}  - ${job['salary'] ?? "unknown"}/=",
@@ -138,7 +138,7 @@ class Dashboard extends StatelessWidget {
                           subtitle: Text('${job['city']}, ${job['country']}'),
                           leading: job['logo'] != null
                               ? Image.network(job['logo'])
-                              : Image.asset('assets/images/ibm.png'),
+                              : Image.asset('assets/images/portfolio.png'),
                           onTap: () {
                             navigateToJobDetailsPage(context, job);
                           },

@@ -49,7 +49,7 @@ class Profile extends StatelessWidget {
                         backgroundImage: userData['profilePicture'] != null
                             ? NetworkImage(
                                 "https://jessi16.pythonanywhere.com${userData['profilePicture']}")
-                            : AssetImage("assets/images/woman.png")
+                            : AssetImage("assets/images/programmer.png")
                                 as ImageProvider,
                         radius: 90.0,
                       ),
