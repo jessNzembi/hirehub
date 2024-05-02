@@ -68,9 +68,12 @@ class JobManagement extends StatelessWidget {
             DropdownButtonFormField<String>(
               value: selectedDuration,
               elevation: 16,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Duration',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(color: Colors.lightBlue),
+                ),
               ),
               onChanged: (String? newValue) {
                 selectedDuration = newValue;
@@ -135,7 +138,7 @@ class JobManagement extends StatelessWidget {
                     },
                     trailing: IconButton(
                       icon: Icon(Icons.delete),
-                      onPressed: () async{
+                      onPressed: () async {
                         await jobsController.deleteJob(job['id']);
                       },
                     ),

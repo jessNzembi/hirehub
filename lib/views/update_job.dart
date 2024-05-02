@@ -7,7 +7,6 @@ import 'package:hirehub/widgets/customtextformfield.dart';
 class UpdateJob extends StatelessWidget {
   final int? jobId;
 
-
   UpdateJob({Key? key, this.jobId}) : super(key: key);
 
   final ApiService apiService = ApiService();
@@ -80,9 +79,12 @@ class UpdateJob extends StatelessWidget {
                         onChanged: (String? newValue) {
                           durationController.text = newValue!;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Duration',
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(color: Colors.lightBlue),
+                          ),
                         ),
                       ),
                       SizedBox(height: 20),
@@ -106,7 +108,6 @@ class UpdateJob extends StatelessWidget {
                           bool success =
                               await apiService.updateJob(jobId!, jobData);
                           if (success) {
-
                             Get.back();
                           } else {
                             Get.snackbar('Error', 'Failed to update job',

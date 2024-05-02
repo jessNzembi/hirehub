@@ -141,10 +141,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 icon: Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 elevation: 16,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Gender',
                   prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: Colors.lightBlue),
+                  ),
                 ),
                 onChanged: (String? newValue) {
                   setState(() {
